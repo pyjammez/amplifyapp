@@ -25,5 +25,10 @@
       }
     }
   },
-  "storage": {}
+  "storage": {
+    "amplifyapptodostorage": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
+    }
+  }
 }
