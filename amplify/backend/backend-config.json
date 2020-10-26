@@ -29,6 +29,10 @@
     "amplifyapptodostorage": {
       "service": "S3",
       "providerPlugin": "awscloudformation"
+    },
+    "fitnessstatesimage": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
     }
   }
 }
