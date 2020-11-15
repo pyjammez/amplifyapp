@@ -1,0 +1,32 @@
+type Note @model {
+  id: ID!
+  name: String!
+  description: String
+  image: String
+}
+
+type Item @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  userId: String
+  name: String
+  section: String
+  var1: String
+  var2: String
+  var3: String
+  date: String
+  time: String
+}
+
+type ProfileSettings @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  userId: String
+  showExercise: Boolean
+  showDiet: Boolean
+  showMeasurements: Boolean
+  showSupplements: Boolean
+  showPhotos: Boolean
+  use24Hours: Boolean
+  dateFormat: String
+  useMetric: Boolean
+  pro: Boolean
+}

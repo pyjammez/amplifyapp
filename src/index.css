@@ -1,3 +1,9 @@
+.amplify-authenticator {
+    display: block;
+    width: 400px;
+    margin: 0px auto;
+    padding: 120px 0 0 0;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -11,3 +17,113 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+a {cursor: pointer;}
+
+.ui.form .field>label {font-size: 11px;font-weight: normal;margin:0;}
+.ui.form .fields {margin-bottom: 5px;}
+.ui.form .field {margin-bottom: 5px;}
+.ui.form .fields>.field {width: 50%;}
+
+.ui.menu .fitted.item {padding: 0 5px;}
+
+.Dashboard .ui.list {padding-top: 20px;}
+.Dashboard .ui.list .item {display: flex;}
+.Dashboard .ui.list .item .ui.button:first-child {width: 100%;}
+.Dashboard .segment {min-height: 200px;}
+.Dashboard .dashboard-quick-buttons {position:absolute; right: 3px; top: -9px; background: #fff; padding: 0 0 0 3px;}
+.Dashboard .dashboard-quick-buttons .ui.button {padding: 5px 15px;}
+
+
+.landing-page .segment {padding: 5em 0em 9em 0em;}
+
+.edit-item-form {width: 100%;max-width: 500px;}
+.edit-item-form.ui.form {max-width: 500px;}
+.edit-item-form label {margin: 0 0 -9px 5px !important;background:#fff;padding: 0 3px;z-index: 100;float: left;position: relative;}
+.edit-item-form .buttons {margin-top: 10px !important;}
+.edit-item-form input {box-shadow: 1px 1px 8px #dadada !important;}
+.edit-item-form .delete-button {float:right;margin: 5px 0 !important;}
+
+.ui.breadcrumb {padding-top: 15px;padding-bottom:10px;}
+.ui.button.add-button {margin-top:10px;}
+
+.exercise-daily-summary-row {display: inline-block; margin:6px 0; width: 100%;}
+.exercise-daily-summary-date {font-weight: bold;}
+.exercise-by-date-set {padding-right: 5px;}
+.exercise-by-date-time {padding-left: 5px; color:#000;}
+.exercise-daily-summary-set {background: #dadada; margin: 1px 1px; border-radius: 3px;padding: 2px 10px;} 
+
+
+header {padding: 10px 0;display:inline-block;width:100%;background: #dfdfdf;margin-bottom:10px;}
+.fixed-header-nav.ui.menu>.item {padding: 1em 0.9em;}
+.fixed-header-nav.ui.menu>.right.menu .item {padding: 1em 0.9em;}
+
+header .breadcrumbs a {color: #555;}
+
+.federated {display:inline-block;width:100%;}
+.federated div div {float: left;}
+svg {width: 30px; height: 30px;}
+
+.toast {background:#ffdada;border: 1px solid #da9191;border-radius:5px;padding: 10px 20px;margin:15px 15px 0 15px;}
+
+.date-picker {display: flex;width: 100%;max-width: 400px;}
+.date-picker button {margin: 0!important;}
+.date-picker button:first-child {border-radius: 3px 0 0 3px !important;}
+.date-picker button:last-child {border-radius: 0 3px 3px 0 !important;}
+.date-picker .field {margin: 0!important;width: 100%;}
+.date-picker .field .input {width: 100%;}
+.date-picker .field input {margin: 0!important;border-radius: 0!important;border: 1px solid #fff;cursor: pointer;}
+.date-picker .ui.button>.icon:not(.button) {height: auto;}
+.date-picker .field {border: 2px solid #767676;}
+
+.list-items {}
+.list-items .header {padding: 5px;margin-bottom:5px;float:left;font-weight:bold;width: 100%;}
+.list-items .description {}
+.list-items .description a {padding: 5px;}
+.list-items.item {border: none;}
+
+.diet-list-latest {max-width: 400px;}
+.diet-list-latest.item {border-bottom:none!important;}
+.diet-list-latest li {width: 20%;float: left;}
+.diet-list-latest li.calories {width: 40%;text-align: right;}
+
+.ui.menu .item>i.icon {margin: 0 5px;}
+.name-suggestion-box {background:#fff; ;border: 1px solid #dadada;position: absolute;z-index: 999;top: 47px;right: 0;border-radius: 2px;}
+.name-suggestion-box .name-suggestion {border-bottom: 1px solid #dadada;padding: 10px;}
+
+.upload-preview {margin: 15px 0 0 0;box-shadow: 1px 1px 8px #dadada;border: 1px solid #dadada; overflow:hidden;border-radius:3px;}
+.upload-preview img {width: 100%}
+
+@media only screen and (max-width: 900px) {
+    header .fluid.input .field {width: 100%;}
+    header .fluid.input .field .input {width: 100%;}
+    .ui.form .fields {flex-wrap: nowrap !important;}
+
+    .nav-auth-buttons button {padding-left: 5px; padding-right: 5px;}
+
+    .landing-page .segment {padding: 4em 0em;}
+
+    .app-store-buttons .ui.image.label {margin: 10px;}
+
+    .edit-item-form .buttons {width: 100%;}
+    .edit-item-form .delete-button {float:none;}
+
+    .ui.form [class*="equal width"].fields>.field {margin-bottom: 0;}
+}
+
+.nav-header {position: absolute;top: 0;left: 50px;}
+.nav-header a {color:#fff;padding: 0 10px;height: 45px;line-height:45px;display: block;}
+
+.sidebar.menu {top: 53px;}
+
+.segment-label {position:absolute;top:-10px;background:#fff; padding: 0 10px;left: 4px;}
+.color-red {color: red;}
+.text-center {text-align: center;}
+.mt-20 {margin-top: 20px !important;}
+.mt-40 {margin-top: 40px !important;}
+.f-10 {font-size: 10px;}
+.f-12 {font-size: 12px;}
+.w-100 {width: 100%;}
+.underline {text-decoration: underline;}
+.cursor-pointer {cursor: pointer;}
+
