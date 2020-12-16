@@ -10,6 +10,7 @@ const ParentRouteLink = ({ component: Component, ...rest }) => {
 
     var pathName = (paths[2]) ? StringHelper.ucFriendly(paths[2]) : "Welcome";
     var pathLink = (paths[2]) ? "/" + paths[1] + "/" + paths[2] : "/";
+    if (pathName == "Dashboard") return <div />
 
     return <Menu.Item as={Link} to={ pathLink }>{ pathName }</Menu.Item>
 }
@@ -74,7 +75,10 @@ export default class Header extends Component {
 
                         <Menu.Menu position='right'>
                             {this.state.actions}
-                            <Menu.Item onClick={this.handleAdminToggle}><Icon size="large" name='cogs' /></Menu.Item>
+
+                            <Menu.Item onClick={this.handleAdminToggle}>
+                                <Icon size="large" name="ellipsis vertical" />
+                            </Menu.Item>
                         </Menu.Menu>
                     </Menu>
                 </Segment>
@@ -91,6 +95,7 @@ export default class Header extends Component {
                     <Menu.Item as={Link} to="/backend/injuries">Injuries</Menu.Item>
                     <Menu.Item as={Link} to="/backend/illness">Illness</Menu.Item>
                     <Menu.Item as={Link} to="/backend/all">All</Menu.Item>
+                    <Menu.Item as={Link} to="/">Welcome Page</Menu.Item>
                 </Sidebar>
 
                 <Sidebar as={Menu} inverted vertical
@@ -98,6 +103,7 @@ export default class Header extends Component {
                     onClick={this.handlePusherClick}
                     visible={this.state.rightSidebarOpened}
                     size="massive" >
+            {/*
                     <Menu.Item as={Link} to="/backend/dashboard-settings">Dashboard Settings</Menu.Item>
                     <Menu.Item as={Link} to="/backend/unit-settings">Unit Settings</Menu.Item>
                     <Menu.Item as={Link} to="/backend/date-time-settings">Date Time Settings</Menu.Item>
@@ -108,6 +114,7 @@ export default class Header extends Component {
                     <Menu.Item as={Link} to="/backend/send-feedback">Send Feedback</Menu.Item>
                     <Menu.Item as={Link} to="/backend/request-feature">Request Feature</Menu.Item>
                     <Menu.Item as={Link} to="/backend/report-bug">Report Bug</Menu.Item>
+            */}
                     <Menu.Item onClick={this.signOut} as={Link} to="/">Logout</Menu.Item>
                 </Sidebar>
             </div>

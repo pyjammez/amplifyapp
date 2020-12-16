@@ -1,83 +1,116 @@
 import React, { useState, useEffect } from 'react';
-import { saveRoutine } from './helpers/ApiHelpers';
-import { Container, Form, Button } from 'semantic-ui-react';
-import { BC } from './helpers/BreadcrumbHelper';
-import { API, Auth } from 'aws-amplify';
-import { getRoutinesByOwnerByCreatedAt } from './graphql/queries';
-import { useHistory } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { Button, Container, List, Segment, Icon } from 'semantic-ui-react';
+import SortingHelper from './helpers/SortingHelper';
 import StringHelper from './helpers/StringHelper';
-
+import DateHelper from './helpers/DateHelper';
+import { BC } from './helpers/BreadcrumbHelper';
+import DateTimeFormatter from './helpers/DateTimeFormatter';
+import { getLastSevenDaysOfItems, getRoutines } from './helpers/ApiHelpers';
+import { API, Auth } from 'aws-amplify';
+import { DashboardQuickButtons, ExerciseSet } from './helpers/Buttons';
 
 export default function ExercisesRoutine() {
-    const initialFormState = {
-        everyday: '',
-        monday: '',
-        tuesday: '',
-        wednesday: '',
-        thursday: '',
-        friday: '',
-        saturday: '',
-        sunday: '',
-    }
-
-    const [formData, setFormData] = useState(initialFormState);
-
-    let history = useHistory();
+    const [routineProgress, setRoutineProgress] = useState([]);
 
     useEffect(() => {
-        fetchRoutine();
+        fetchRoutinesAndItems();
     }, []);
 
-    async function fetchRoutine() {
-        const { username: owner } = await Auth.currentAuthenticatedUser();
-        const apiData = await API.graphql({ query: getRoutinesByOwnerByCreatedAt, variables: {
-            sortDirection: 'DESC',
-            limit: 1,
-            owner: owner
-        }});
+    async function fetchRoutinesAndItems() {
+        var date = new Date();
+        var routinesData = await getRoutines();
+        var lastSevenDaysOfExercise = await getLastSevenDaysOfItems('exercise');
+        lastSevenDaysOfExercise = SortingHelper.sortExercisesByDateNameRepTime(lastSevenDaysOfExercise);
+        console.log("check it", lastSevenDaysOfExercise);
+        lastSevenDaysOfExercise = lastSevenDaysOfExercise.reduce((newObj, oldObj) => (
+            newObj[oldObj['date']] = oldObj['exercises'], newObj
+        ), {});
 
-        let items = apiData.data.getRoutinesByOwnerByCreatedAt.items || [];
+        // join the everyday routine onto the end of the day-specific routines
+        const daysArray = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        let everydayRoutine = routinesData['everyday'] || "";
+        var routinesObject = {};
 
-        if (items) {
-            var newFormData = {};
-            for (var key in initialFormState) {newFormData[key] = items[0][key];}
-            setFormData(newFormData);
+        daysArray.forEach(key => {
+            let routineForThatDay = routinesData[key] || "";
+            let newString = routineForThatDay + ',' + everydayRoutine;
+            routinesObject[key] = newString.split(',').map(e=>e.trim()).filter(Boolean);
+        });
+
+        // Count back from today to match the date with the name and add the progress
+        var routinesAndProgress = [];
+
+        for (var i = 0; i < 7; i++) {
+            var newDate = new Date(date.setDate(date.getDate() - 1));
+            var dateOnThatDay = newDate.toISOString().substring(0,10);
+            var nameOfDay = DateHelper.todaysName(dateOnThatDay);
+            var exercisesThatDay = lastSevenDaysOfExercise[dateOnThatDay] || [];
+            var routineThatDay = routinesObject[nameOfDay];
+
+            // turn array of objects into object {name: pushups, sets: [...]}
+            exercisesThatDay = exercisesThatDay.reduce((newObj, oldObj) => (
+                newObj[oldObj['name'].toLowerCase()] = oldObj['sets'], newObj
+            ), {});
+
+            // add the sets to the routine exercise name
+            routineThatDay = routineThatDay.map((exerciseName) => {
+                let exercise = exercisesThatDay[exerciseName.toLowerCase()] || [];
+
+                return {
+                    name: exerciseName,
+                    sets: exercise
+                };
+            });
+
+            routinesAndProgress.push({
+                date: dateOnThatDay,
+                dateName: daysArray[newDate.getDay()],
+                routine: routineThatDay,
+            });
         }
+console.log(routinesAndProgress);
+        setRoutineProgress(routinesAndProgress);
     }
 
-    function save() {
-        saveRoutine(formData);
-        console.log('save', formData);
-        history.push('/backend/dashboard')
-    }
+    function loop() {
+        return routineProgress.map((dateObject, idx) => (
+            <Segment key={idx} className="exercise-list-latest mt-20">
+                <Link to={`/backend/exercises/by-date/${dateObject.date}`} className="segment-label">
+                    <DateTimeFormatter value={ dateObject.date } date />
+                </Link>
 
-    function clear() {
-        setFormData(initialFormState);
-        saveRoutine(formData);
+                <List.Description>
+                    { dateObject.routine.map((exercise, idx) => 
+                        <div key={idx} className="exercise-routine-row">
+                            <Link
+                                className="exercise-routine-name"
+                                to={`/backend/exercises/by-name/${encodeURIComponent(exercise.name)}`}>
+                                { StringHelper.ucWords(exercise.name) }: &nbsp;&nbsp;
+                            </Link>
+
+                            <Button as={Link}
+                                className="exercise-routine-add float-right f-10"
+                                to={`/backend/exercises/new?name=${exercise.name}`} key={idx}>
+                                <Icon name="plus" />
+                            </Button>
+
+                            { exercise.sets.length ? exercise.sets.map((set, key) => 
+                                <ExerciseSet set={ set } key={ key } />
+                            ) : ''}
+
+                        </div>
+                    ) }
+                </List.Description>
+            </Segment>
+        ));
     }
 
     return (
         <Container>
-            <Button onClick={clear} size="tiny" className="add-button" floated="right">Clear</Button>
-            <Button onClick={save} size="tiny" className="add-button" floated="right">Save</Button>
-            <BC link="/backend/exercises" first="Exercise" active="Routines" />
-            <p>Create a weekly routine by listing the exercises you want to do on a particular day.</p>
-
-            <Form className="edit-routine-form">
-                { Object.keys(initialFormState).map(key =>
-                    <Form.Field key={key}>
-                        <Form.TextArea
-                        label={ StringHelper.ucFirst(key) }
-                        autoComplete="off"
-                        name={ key }
-                        value={ formData[key] }
-                        placeholder="example: Pushups, Pullups, Situps" 
-                        onChange={e => setFormData({ ...formData, [key]: e.target.value})} />
-                    </Form.Field>
-                )}
-
-                <Button onClick={save} size="tiny" className="add-button" floated="right">Save</Button>
-            </Form>
+            <BC link="/backend/exercises" first="Exercise" active="Today's Routine" />
+            <DashboardQuickButtons section="exercises/routine" edit />
+            <List>{ loop() }</List>
         </Container>
-    );
+    )
 }

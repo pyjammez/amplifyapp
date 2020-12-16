@@ -34,7 +34,7 @@ export default class DateTimeFormatter extends React.Component{
             : '';
 
         return (
-            <span className="datetime-formatted">
+            <span className={`datetime-formatted ${this.props.floatright ? "float-right" : ""}`}>
                 { moment(this.props.value, format).format(formatString.join(' ')) }
             </span>
         )

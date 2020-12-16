@@ -1,7 +1,8 @@
+/*
 import React, { useState, useEffect } from 'react';
-import { createItem, deleteItem } from './helpers/ApiHelpers';
+import { deleteItem } from './helpers/ApiHelpers';
 import { FInput, DateTime, SaveAndDelete } from './helpers/FormHelpers';
-import { List, Container, Form } from 'semantic-ui-react';
+import { List, Container, Icon, Button, Form } from 'semantic-ui-react';
 import { Link, useParams } from 'react-router-dom';
 import { BC } from './helpers/BreadcrumbHelper';
 import { API, Auth } from 'aws-amplify';
@@ -28,7 +29,7 @@ export default function TodaysRoutine() {
         todaysExercises = SortingHelper.sortExercisesByDateNameRepTime(todaysExercises);
 
         var todaysExercisesObj = {};
-        todaysExercises = todaysExercises[0]['exercises'];
+        todaysExercises = todaysExercises[0] ? todaysExercises[0]['exercises'] : [];
         todaysExercises.forEach((exercise) => {
             todaysExercisesObj[exercise.name] = exercise.sets;
         });
@@ -79,10 +80,11 @@ export default function TodaysRoutine() {
                     <Link
                         className="exercise-daily-summary-set"
                         to={`/backend/exercises/new?name=${exercises.name}`} key={idx}>
-                        Add
+                        <Icon name="plus" />
                     </Link>
                 }
             </div>
         ) }
     </List.Description>
 }
+*/

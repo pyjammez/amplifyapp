@@ -23,14 +23,13 @@ export default class LandingPage extends Component {
                   <Segment
                     inverted
                     textAlign='center'
-                    style={{ padding: '1em 0 80px 0' }}
+                    style={{ padding: '80px 0 80px 0' }}
                     vertical
                   >
                     <Menu
-                      fixed={fixed ? 'top' : null}
-                      inverted={!fixed}
-                      pointing={!fixed}
-                      secondary={!fixed}
+                      fixed='top'
+                      inverted={true}
+                      pointing={true}
                       size='large'
                     >
                         <Container>
@@ -39,7 +38,7 @@ export default class LandingPage extends Component {
                             <Menu.Item as={ Link } to="/">Testimonials</Menu.Item>
                             <Menu.Item as={ Link } to="/">Team</Menu.Item>
                             <Menu.Item position='right'>
-                                  <Button as={ Link } inverted={!fixed} to="/backend/dashboard">
+                                  <Button as={ Link } to="/backend/dashboard">
                                         Dashboard
                                   </Button>
                             </Menu.Item>

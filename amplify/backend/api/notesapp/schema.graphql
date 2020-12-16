@@ -38,6 +38,7 @@ type Routine @model
   @key(name: "getRoutinesByOwnerByCreatedAt", fields: ["owner", "createdAt"], queryField: "getRoutinesByOwnerByCreatedAt")
 {
   id: ID!
+  section: String
   owner: String
   everyday: String
   monday: String

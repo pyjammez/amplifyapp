@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
-import { Container } from 'semantic-ui-react';
+import React from 'react';
+import ItemLatest from './ItemLatest';
 
-export default class Measurements extends Component {
-    render() {
-        return (
-            <Container className="Measurements">
-                Measurements page
-            </Container>
-        )
-    }
+export default function Measurements() {
+    const item = (item) => <div>
+        <span>{ item.var1 }</span>
+    </div>
+
+    return <ItemLatest route="measurements" section="measurement" item={ item } />
 }

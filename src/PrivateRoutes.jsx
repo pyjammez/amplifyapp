@@ -14,35 +14,61 @@ import UpgradeToPro from './UpgradeToPro';
 import SendFeedback from './SendFeedback';
 import RequestFeature from './RequestFeature';
 import ReportBug from './ReportBug';
-import Exercises from './Exercises';
-import ExercisesByDate from './ExercisesByDate';
-import ExercisesByName from './ExercisesByName';
-import ExercisesNew from './ExercisesNew';
-import ExercisesRoutine from './ExercisesRoutine';
-import Diet from './Diet';
-import Measurements from './Measurements';
-import Supplements from './Supplements';
-import ProgressPhotos from './ProgressPhotos';
-import Injuries from './Injuries';
-import Illness from './Illness';
 import All from './All';
-
+import ItemHome from './ItemHome'
+import ItemLatest from './ItemLatest'
+import ItemNew from './ItemNew'
+import ItemPlan from './ItemPlan'
+import ItemPlanEdit from './ItemPlanEdit'
+import ItemSettings from './ItemSettings'
+import ItemByDate from './ItemByDate'
+import ItemByName from './ItemByName'
 
 const PrivateRoutes = () => {
-    //const [authState, setAuthState] = React.useState();
-    //const [user, setUser] = React.useState();
-
     React.useEffect(() => {
-        return onAuthUIStateChange((nextAuthState, authData) => {
-      //      setAuthState(nextAuthState);
-      //      setUser(authData)
-        });
+        return onAuthUIStateChange((nextAuthState, authData) => { });
     }, []);
 
-    //let match = useRouteMatch();
+    const p = {
+        exercises: {
+            route: "exercises",
+            section: "exercise",
+            name: "Exercises",
+            description: "Record sets/reps, distance/time"},
+        diet: {
+            route: "diet",
+            section: "diet",
+            name: "Diet",
+            description: "Record macronutrient values"},
+        supplements: {
+            route: "supplements",
+            section: "supplement",
+            name: "Supplements",
+            description: "Record what you take"},
+        measurements: {
+            route: "measurements",
+            section: "measurement",
+            name: "Measurements",
+            description: "Record weight or tape measurements"},
+        injuries: {
+            route: "injuries",
+            section: "injury",
+            name: "Injuries",
+            description: "Record injuries you sustain"},
+        illness: {
+            route: "illness",
+            section: "illness",
+            name: "Illness",
+            description: "Record any illness you acquire"},
+        photos: {
+            route: "photos",
+            section: "photo",
+            name: "Progress Photos",
+            description: "Record progress photos"},
+    }
 
     let routes = {
-        'dashboard': <Dashboard />,
+        'dashboard': <Dashboard p={p} />,
         'dashboard-settings': <DashboardSettings />,
         'unit-settings': <UnitSettings />,
         'date-time-settings': <DateTimeSettings />,
@@ -53,23 +79,21 @@ const PrivateRoutes = () => {
         'send-feedback': <SendFeedback />,
         'request-feature': <RequestFeature />,
         'report-bug': <ReportBug />,
-        'exercises': <Exercises />,
-        'exercises/new': <ExercisesNew />,
-        'exercises/routine': <ExercisesRoutine />,
-        'exercises/:id/edit': <ExercisesNew />,
-        'exercises/by-date/:datePar': <ExercisesByDate />,
-        'exercises/by-name/:namePar': <ExercisesByName />,
-        'diet': <Diet/>,
-        'measurements': <Measurements/>,
-        'supplements': <Supplements/>,
-        'progress-photos': <ProgressPhotos/>,
-        'injuries': <Injuries/>,
-        'illness': <Illness/>,
         'all': <All />,
+        ':routePar': <ItemLatest p={p} />,
+        ':routePar/home': <ItemHome p={p} />,
+        ':routePar/latest': <ItemLatest p={p} />,
+        ':routePar/new': <ItemNew p={p} />,
+        ':routePar/plan': <ItemPlan p={p} />,
+        ':routePar/plan/edit': <ItemPlanEdit p={p} />,
+        ':routePar/settings': <ItemSettings p={p} />,
+        ':routePar/:id/edit': <ItemNew p={p} />,
+        ':routePar/by-date/:datePar': <ItemByDate p={p} />,
+        ':routePar/by-name/:namePar': <ItemByName p={p} />,
     };
 
     return (
-        <div>
+        <div className="backend">
             <Header />
 
             <Switch>
@@ -78,7 +102,7 @@ const PrivateRoutes = () => {
                 )}
             </Switch>
         </div>
-    );
+    )
 }
 
 export default PrivateRoutes;

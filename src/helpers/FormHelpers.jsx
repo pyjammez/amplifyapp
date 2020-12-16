@@ -29,6 +29,7 @@ export const DateTime = ({f}) => (
 
 export const FInput = ({name, label, f}) => (
     <Form.Input
+    fluid
     label={label}
     autoComplete="off"
     value={f.formData[name]}
@@ -49,14 +50,22 @@ export const FTextArea = ({name, placeholder, formData, label}) => (
 );
 */
 
+export const FormGroup = (props) => (
+    <Form.Group widths="equal">
+        <FInput name="var1" label={ props.var1Label } f={props.f} />
+        { props.var2Label ? <FInput name="var2" label={ props.var2Label } f={props.f} /> : "" }
+        { props.var3Label ? <FInput name="var3" label={ props.var3Label } f={props.f} /> : "" }
+    </Form.Group>
+);
+
 export const SaveAndDelete = ({create, deleteAndReturn, action}) => (
     <div>
         <Button.Group className="w-100">
             <Button onClick={() => create('back')}>Save & Back</Button>
             <Button.Or />
-            <Button onClick={() => create('list')}>Save & List</Button>
-            <Button.Or />
             <Button onClick={() => create('stay')}>Save & Stay</Button>
+            <Button.Or />
+            <Button onClick={() => create('list')}>Save & Home</Button>
         </Button.Group>
 
         { action === "Edit" && 

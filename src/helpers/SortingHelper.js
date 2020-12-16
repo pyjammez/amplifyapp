@@ -1,3 +1,13 @@
+/*
+Contents:
+
+function orderArrayByObjectKey(array, orderKey, orderDirection) {
+function groupArrayByObjectKey(array, groupKey) {
+function createObjectWithDateKeyNameKeyAndArray(itemsFromAPI) {
+function sortExercisesByDateNameRepTime(itemsFromAPI) {
+function createObjectWithDateKeyAndArray(itemsFromAPI) {
+*/
+
 function orderArrayByObjectKey(array, orderKey, orderDirection) {
     if (!array) {
         console.log("array empty");
@@ -80,6 +90,31 @@ function createObjectWithDateKeyNameKeyAndArray(itemsFromAPI) {
     return sets;
 }
 
+function createObjectWithDateKeyAndArray(itemsFromAPI) {
+    var obj = {};
+
+    itemsFromAPI.forEach(function (arrayItem) {
+        let date = arrayItem['datetime'].slice(0,10);
+        if (typeof obj[date] === "undefined") obj[date] = [];
+        obj[date].push(arrayItem);
+    });
+
+    return obj;
+}
+
+function createObjectWithNameKeyAndArray(itemsFromAPI) {
+    var obj = {};
+
+    itemsFromAPI.forEach(function (arrayItem) {
+        let name = arrayItem['name'];
+        if (typeof obj[name] === "undefined") obj[name] = [];
+        obj[name].push(arrayItem);
+    });
+
+    return obj;
+}
+
+/** DO I NEED THIS STILL??? **/
 function sortExercisesByDateNameRepTime(itemsFromAPI) {
     itemsFromAPI = orderArrayByObjectKey(itemsFromAPI, 'datetime', 'asc');
     var objectWithDateKey = createObjectWithDateKeyNameKeyAndArray(itemsFromAPI);
@@ -120,6 +155,8 @@ const SortingHelper = {
     orderArrayByObjectKey,
     groupArrayByObjectKey,
     createObjectWithDateKeyNameKeyAndArray,
+    createObjectWithDateKeyAndArray,
+    createObjectWithNameKeyAndArray,
     sortExercisesByDateNameRepTime,
 };
 export default SortingHelper;

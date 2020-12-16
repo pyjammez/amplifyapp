@@ -7,10 +7,11 @@ import SortingHelper from './helpers/SortingHelper';
 import StringHelper from './helpers/StringHelper';
 import { BC } from './helpers/BreadcrumbHelper';
 import DateTimeFormatter from './helpers/DateTimeFormatter';
+import { DashboardQuickButtons, ExerciseSet } from './helpers/Buttons';
+import SectionHeader from './helpers/SectionHeader';
 
 export default function Exercises() {
     const [items, setItems] = useState([]);
-    //const [date, setDate] = useState([]);
 
     useEffect(() => {
         fetchItems();
@@ -39,12 +40,8 @@ export default function Exercises() {
                                 { StringHelper.ucWords(exercises.name) }: &nbsp;&nbsp;
                             </Link>
 
-                            { exercises.sets.map((set, idx) => 
-                                <Link
-                                    className="exercise-daily-summary-set"
-                                    to={`/backend/exercises/${set.id}/edit`} key={idx}>
-                                    { set.var1 }x{ set.var2}
-                                </Link>
+                            { exercises.sets.map((set, key) => 
+                                <ExerciseSet set={ set } key={ key } />
                             ) }
                         </div>
                     ) }
@@ -55,11 +52,8 @@ export default function Exercises() {
 
     return (
         <Container>
-            <BC link="/backend/exercises" first="Exercise" active="Daily Summary" />
-
-            <Button size="tiny" className="add-button" floated="right" as={Link} to="/backend/exercises/new">Add</Button>
-
-            <List>{ loop() }</List>
+            <SectionHeader name="Exercises" route="exercises" section="exercise" description="" /> 
+            What do I do with this page now?
         </Container>
     )
 }

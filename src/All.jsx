@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Container, List, Segment } from 'semantic-ui-react';
+import { Container, List, Segment } from 'semantic-ui-react';
 import { listItems } from './graphql/queries';
 import { deleteItem } from './helpers/ApiHelpers';
 import { API } from 'aws-amplify';
