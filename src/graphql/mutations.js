@@ -179,6 +179,7 @@ export const createRoutine = /* GraphQL */ `
   ) {
     createRoutine(input: $input, condition: $condition) {
       id
+      section
       owner
       everyday
       monday
@@ -200,6 +201,7 @@ export const updateRoutine = /* GraphQL */ `
   ) {
     updateRoutine(input: $input, condition: $condition) {
       id
+      section
       owner
       everyday
       monday
@@ -221,6 +223,7 @@ export const deleteRoutine = /* GraphQL */ `
   ) {
     deleteRoutine(input: $input, condition: $condition) {
       id
+      section
       owner
       everyday
       monday

@@ -149,6 +149,7 @@ export const onCreateRoutine = /* GraphQL */ `
   subscription OnCreateRoutine($owner: String!) {
     onCreateRoutine(owner: $owner) {
       id
+      section
       owner
       everyday
       monday
@@ -167,6 +168,7 @@ export const onUpdateRoutine = /* GraphQL */ `
   subscription OnUpdateRoutine($owner: String!) {
     onUpdateRoutine(owner: $owner) {
       id
+      section
       owner
       everyday
       monday
@@ -185,6 +187,7 @@ export const onDeleteRoutine = /* GraphQL */ `
   subscription OnDeleteRoutine($owner: String!) {
     onDeleteRoutine(owner: $owner) {
       id
+      section
       owner
       everyday
       monday

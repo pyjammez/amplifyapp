@@ -122,6 +122,7 @@ export const getRoutine = /* GraphQL */ `
   query GetRoutine($id: ID!) {
     getRoutine(id: $id) {
       id
+      section
       owner
       everyday
       monday
@@ -145,6 +146,7 @@ export const listRoutines = /* GraphQL */ `
     listRoutines(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        section
         owner
         everyday
         monday
@@ -214,6 +216,7 @@ export const getRoutinesByOwnerByCreatedAt = /* GraphQL */ `
     ) {
       items {
         id
+        section
         owner
         everyday
         monday
